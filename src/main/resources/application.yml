@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: blog
+  datasource:
+    url: jdbc:postgresql://localhost:5432/desafio-jr-blog
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      dialect: org.hibernate.dialect.PostgreSQLDialect
+      formart_sql: true
+    show-sql: true
+    open-in-view: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+server:
+  port: 8080
+  error:
+    include-stacktrace: never
+    include-message: always
+    include-binding-errors: always
+
+#swagger
+springdoc:
+  swagger-ui:
+    path: /api/docs
