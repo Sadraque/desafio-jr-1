@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.time.LocalDateTime;
 
 @RestController
@@ -23,13 +24,13 @@ public class PostController {
 
     @PostMapping(value = "", produces = "application/json")
     @Operation(description = "Save new Post")
-    public ResponseEntity<Post> save(@RequestBody PostDTO postDTO) {
+    public ResponseEntity<Post> save(@Valid @RequestBody PostDTO postDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(postService.save(postDTO));
     }
 
     @PutMapping(value = "{id}", produces = "application/json")
     @Operation(description = "Update a Post")
-    public ResponseEntity<Post> update(@PathVariable Long id, @RequestBody Post post) {
+    public ResponseEntity<Post> update(@PathVariable Long id, @Valid @RequestBody PostDTO post) {
         return ResponseEntity.ok(postService.update(id, post));
     }
 

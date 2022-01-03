@@ -3,6 +3,7 @@ package desafio.desafiojrblog.service;
 import desafio.desafiojrblog.domain.Post;
 import desafio.desafiojrblog.domain.dto.PostDTO;
 import desafio.desafiojrblog.exception.NotFoundException;
+import desafio.desafiojrblog.exception.SystemException;
 import desafio.desafiojrblog.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -32,6 +33,15 @@ public class PostService {
         post.setCreatedAt(oldEntity.getCreatedAt());
 
         return postRepository.save(post);
+    }
+
+    @Transactional
+    public Post update(Long id, PostDTO postDTO) {
+        if(postDTO == null || id == null) {
+            throw new SystemException();
+        }
+
+        return update(id, postDTO.toEntity());
     }
 
     @Transactional
