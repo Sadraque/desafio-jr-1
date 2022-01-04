@@ -25,3 +25,9 @@ server:
 springdoc:
   swagger-ui:
     path: /api/docs
+
+#scheduler
+post:
+  deleteOld:
+    maxPeriodInDays: 30
+    cronTimer: 0 0 * * * *

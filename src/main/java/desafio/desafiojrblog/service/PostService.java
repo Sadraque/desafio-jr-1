@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.Optional;
 
 @Service
 public class PostService {
@@ -53,6 +53,7 @@ public class PostService {
 
         } else {
             entity.setDeleted(true);
+            entity.setDeletedAt(LocalDateTime.now());
             update(id, entity);
         }
     }
@@ -72,14 +73,14 @@ public class PostService {
     }
 
     public Post restoreById(Long id) {
-        Post post = findById(id);
+        Optional<Post> object = Optional.ofNullable(postRepository.findByIdAndDeletedIsTrue(id)
+                        .orElseThrow(() -> new NotFoundException("Post not found!")));
 
-        if (post != null) {
-            post.setDeleted(false);
-            post = postRepository.save(post);
-        }
+        Post post = object.get();
+        post.setDeleted(false);
+        post.setDeletedAt(null);
 
-        return post;
+        return postRepository.save(post);
     }
 
     public Page<Post> findAllByDate(Pageable pageable, LocalDateTime startDate, LocalDateTime endDate) {

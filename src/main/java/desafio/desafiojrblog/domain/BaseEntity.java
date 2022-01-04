@@ -22,6 +22,11 @@ public class BaseEntity implements Serializable {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
+    @Column(name = "deleted_at")
+    @UpdateTimestamp
+    @JsonIgnore
+    private LocalDateTime deletedAt;
+
     @Column
     @JsonIgnore
     private Boolean deleted = Boolean.FALSE;
