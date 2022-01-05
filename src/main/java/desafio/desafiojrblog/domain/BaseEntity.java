@@ -23,7 +23,6 @@ public class BaseEntity implements Serializable {
     private LocalDateTime updatedAt;
 
     @Column(name = "deleted_at")
-    @UpdateTimestamp
     @JsonIgnore
     private LocalDateTime deletedAt;
 
