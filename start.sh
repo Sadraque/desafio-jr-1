@@ -1,4 +1,4 @@
-mvn package -DskipTests;
+mvn package;
 
 docker build -t medical-scheduler-system . ;
 
